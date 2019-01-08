@@ -5,7 +5,8 @@ class CandidateList extends Component {
   constructor() {
     super();
     this.state = {
-      candidates: []
+      candidates: [],
+      isLoaded: false
     }
   }
 
@@ -16,21 +17,34 @@ class CandidateList extends Component {
       return results.json();
     }).then(data => {
       data.forEach(person => {
-        this.setState({ candidates: [...this.state.candidates, person.name] })
+        this.setState({ 
+          isLoaded: true,
+          candidates: [...this.state.candidates, person.name] })
       })
     })
   }
 
   render() {
-    return (
-      <div className="name-list">
-        <ul>
-          {/* {this.state.candidates.forEach(candidate => {
-            return candidate.name
-          })} */}
-        </ul>
-      </div>
-    );
+
+    if (!this.state.isLoaded) {
+      return <div>Loading...</div>
+    } else {
+      return (
+        <div className="name-list">
+          <ul>
+            {this.state.candidates.map(candidate => {
+              if (candidate) {
+                return <li>{candidate}</li>
+              }
+            })}
+          </ul>
+        </div>
+      );
+      
+    }
+
+
+    
   }
 }
 
