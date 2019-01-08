@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Candidate from './candidatePage';
 import './App.scss';
 
 class CandidateList extends Component {
@@ -6,7 +7,8 @@ class CandidateList extends Component {
     super();
     this.state = {
       candidates: [],
-      isLoaded: false
+      isLoaded: false,
+      chosen: {}
     }
   }
 
@@ -19,9 +21,15 @@ class CandidateList extends Component {
       data.forEach(person => {
         this.setState({ 
           isLoaded: true,
-          candidates: [...this.state.candidates, person.name] })
+          candidates: [...this.state.candidates, person] })
       })
     })
+  }
+
+  handleNameClick(e) {
+    console.log("EVENT", e.target)
+    this.setState({ chosen: e.target})
+    console.log(this.state.chosen)
   }
 
   render() {
@@ -30,14 +38,30 @@ class CandidateList extends Component {
       return <div>Loading...</div>
     } else {
       return (
-        <div className="name-list">
-          <ul>
-            {this.state.candidates.map(candidate => {
-              if (candidate) {
-                return <li>{candidate}</li>
-              }
-            })}
-          </ul>
+        <div className="main-pg">
+          <div className="name-list">
+            <div className="list-title">
+              CANDIDATES
+            </div>
+            <ul>
+              {this.state.candidates.map(candidate => {
+                if (candidate.name) {
+                  return (
+                    <li key={candidate.id}>
+                    <button 
+                      className="name-btn" 
+                      onClick={this.handleNameClick.bind(this)}
+                      value={this.state.chosen}
+                    >
+                      {candidate.name}
+                    </button>
+                  </li>
+                  )
+                }
+              })}
+            </ul>
+          </div>
+          <Candidate />
         </div>
       );
       
