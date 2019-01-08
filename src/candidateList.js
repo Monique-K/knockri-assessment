@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './App.scss';
 
 class CandidateList extends Component {
   constructor() {
@@ -9,6 +9,7 @@ class CandidateList extends Component {
     }
   }
 
+  // make an api call to add all candidate names to the state array
   componentWillMount() {
     fetch('http://localhost:3010/candidates')
     .then(results =>{
@@ -20,34 +21,13 @@ class CandidateList extends Component {
     })
   }
 
-  // async componentDidMount(){
-  //   let people = this.state.candidates
-  //    const listPerson = async (people) => {
-  //     console.log("PEOPLE", this.state.candidates)
-  //     await people.forEach(person => {
-  //       console.log(person)
-  //       return (
-  //         <li className="list-item">
-  //           {person} 
-  //           BLAH
-  //           <n />
-  //         </li> 
-  //       )
-  //     })
-  //     return listPerson
-  //   }
-  // }
-
- 
-
   render() {
     return (
       <div className="name-list">
         <ul>
-          {this.state.candidates.forEach(candidate => {
-            console.log("dfgfdgs")
+          {/* {this.state.candidates.forEach(candidate => {
             return candidate.name
-          })}
+          })} */}
         </ul>
       </div>
     );
